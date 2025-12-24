@@ -3,127 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprende el Alfabeto Ruso - Quiz</title>
+    <title>Aprende Idiomas - Inicio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-language"></i> Aprende el Alfabeto Ruso</h1>
-            <p class="subtitle">Quiz interactivo para aprender el alfabeto cirílico ruso</p>
+            <h1><i class="fas fa-globe-americas"></i> Aprende Idiomas</h1>
+            <p class="subtitle">Selecciona un idioma para comenzar a aprender</p>
         </header>
 
         <div class="main-content">
-            <!-- Panel de selección de mazo -->
-            <div class="deck-selection" id="deckSelection">
-                <h2><i class="fas fa-layer-group"></i> Selecciona un Mazo</h2>
-                <div class="deck-grid" id="deckGrid">
-                    <!-- Los mazos se cargarán aquí dinámicamente -->
-                </div>
-                <div class="deck-info">
-                    <p>Selecciona un mazo para comenzar a practicar. Cada mazo contiene 10 preguntas.</p>
-                </div>
-            </div>
-
-            <!-- Panel del quiz (inicialmente oculto) -->
-            <div class="quiz-container" id="quizContainer" style="display: none;">
-                <div class="quiz-header">
-                    <div class="progress-info">
-                        <span class="deck-name" id="currentDeckName"></span>
-                        <span class="progress" id="progressText">Pregunta 1/10</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </div>
-
-                <div class="question-container">
-                    <div class="russian-character" id="russianCharacter">
-                        А а
+            <div class="language-selection">
+                <h2><i class="fas fa-language"></i> Elige tu Idioma</h2>
+                <p class="selection-description">Cada idioma tiene quizzes interactivos para aprender su alfabeto y vocabulario básico.</p>
+                
+                <div class="language-grid">
+                    <!-- Tarjeta para Ruso -->
+                    <div class="language-card" id="russianCard">
+                        <div class="language-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div class="language-info">
+                            <h3>Ruso</h3>
+                            <p>Aprende el alfabeto cirílico con nuestro quiz interactivo.</p>
+                            <div class="language-stats">
+                                <span><i class="fas fa-layer-group"></i> 4 Mazos</span>
+                                <span><i class="fas fa-question-circle"></i> 40 Preguntas</span>
+                            </div>
+                        </div>
+                        <div class="language-flag">
+                            🇷🇺
+                        </div>
                     </div>
                     
-                    <!-- Contenedor de información (oculto inicialmente) -->
-                    <div class="answer-info" id="answerInfo" style="display: none;">
-                        <div class="character-info">
-                            <div class="info-item">
-                                <span class="info-label">Nombre:</span>
-                                <span class="info-value" id="characterName">A</span>
+                    <!-- Tarjeta para Coreano -->
+                    <div class="language-card" id="koreanCard">
+                        <div class="language-icon">
+                            <i class="fas fa-dragon"></i>
+                        </div>
+                        <div class="language-info">
+                            <h3>Coreano</h3>
+                            <p>Aprende el alfabeto Hangul con ejercicios prácticos.</p>
+                            <div class="language-stats">
+                                <span><i class="fas fa-layer-group"></i> 4 Mazos</span>
+                                <span><i class="fas fa-question-circle"></i> 40 Preguntas</span>
                             </div>
-                            <div class="info-item">
-                                <span class="info-label">Pronunciación:</span>
-                                <span class="info-value" id="pronunciation">a</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Ejemplo:</span>
-                                <span class="info-value" id="example">Ананас (ananás) - piña</span>
-                            </div>
+                        </div>
+                        <div class="language-flag">
+                            🇰🇷
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Contenedor de opciones en grid 2x2 -->
-                <div class="options-grid" id="optionsGrid">
-                    <!-- Las opciones se cargarán aquí dinámicamente -->
+            <!-- Sistema Ruso (oculto inicialmente) -->
+            <div class="language-system" id="russianSystem" style="display: none;">
+                <div class="system-header">
+                    <button class="btn-back" id="backFromRussian">
+                        <i class="fas fa-arrow-left"></i> Volver a Idiomas
+                    </button>
+                    <h2><i class="fas fa-snowflake"></i> Aprende Ruso</h2>
                 </div>
 
-                <div class="feedback" id="feedback">
-                    <div class="feedback-content" id="feedbackContent">
-                        <!-- El feedback se mostrará aquí -->
+                <!-- Panel de selección de mazo Ruso -->
+                <div class="deck-selection" id="russianDeckSelection">
+                    <h3><i class="fas fa-layer-group"></i> Selecciona un Mazo de Ruso</h3>
+                    <div class="deck-grid" id="russianDeckGrid">
+                        <!-- Los mazos rusos se cargarán aquí -->
                     </div>
-                    <button class="btn-next" id="nextButton" style="display: none;">
-                        <i class="fas fa-arrow-right"></i> Siguiente
-                    </button>
                 </div>
 
-                <div class="quiz-controls">
-                    <button class="btn-control" id="backToDecks">
-                        <i class="fas fa-arrow-left"></i> Volver a Mazos
-                    </button>
-                    <button class="btn-control" id="restartQuiz">
-                        <i class="fas fa-redo"></i> Reiniciar Quiz
-                    </button>
+                <!-- Panel del quiz Ruso -->
+                <div class="quiz-container" id="russianQuizContainer" style="display: none;">
+                    <!-- Contenido del quiz ruso (igual al que ya tienes) -->
+                    <div class="quiz-header">
+                        <div class="progress-info">
+                            <span class="deck-name" id="russianCurrentDeckName"></span>
+                            <span class="progress" id="russianProgressText">Pregunta 1/10</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="russianProgressFill"></div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="character-display" id="russianCharacter">
+                            А а
+                        </div>
+                        
+                        <div class="answer-info" id="russianAnswerInfo" style="display: none;">
+                            <div class="character-info">
+                                <div class="info-item">
+                                    <span class="info-label">Nombre:</span>
+                                    <span class="info-value" id="russianCharacterName">A</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Pronunciación:</span>
+                                    <span class="info-value" id="russianPronunciation">a</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Ejemplo:</span>
+                                    <span class="info-value" id="russianExample">Ананас (ananás) - piña</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="options-grid" id="russianOptionsGrid">
+                        <!-- Las opciones se cargarán aquí -->
+                    </div>
+
+                    <div class="feedback" id="russianFeedback">
+                        <div class="feedback-content" id="russianFeedbackContent"></div>
+                        <button class="btn-next" id="russianNextButton" style="display: none;">
+                            <i class="fas fa-arrow-right"></i> Siguiente
+                        </button>
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button class="btn-control" id="russianBackToDecks">
+                            <i class="fas fa-arrow-left"></i> Volver a Mazos
+                        </button>
+                        <button class="btn-control" id="russianRestartQuiz">
+                            <i class="fas fa-redo"></i> Reiniciar Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Panel de resultados Ruso -->
+                <div class="results-container" id="russianResultsContainer" style="display: none;">
+                    <h3><i class="fas fa-trophy"></i> ¡Quiz de Ruso Completado!</h3>
+                    <div class="score-circle">
+                        <div class="score-value" id="russianFinalScore">0/10</div>
+                        <div class="score-label">Puntuación</div>
+                    </div>
+                    <div class="results-details">
+                        <div class="result-item">
+                            <span class="result-label">Correctas:</span>
+                            <span class="result-value correct-count" id="russianCorrectCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Incorrectas:</span>
+                            <span class="result-value incorrect-count" id="russianIncorrectCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Mazo:</span>
+                            <span class="result-value" id="russianResultDeckName">Vocales</span>
+                        </div>
+                    </div>
+                    <div class="results-controls">
+                        <button class="btn-action" id="russianPlayAgain">
+                            <i class="fas fa-play"></i> Jugar Otra Vez
+                        </button>
+                        <button class="btn-action" id="russianTryOtherDeck">
+                            <i class="fas fa-layer-group"></i> Otro Mazo
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Panel de resultados (inicialmente oculto) -->
-            <div class="results-container" id="resultsContainer" style="display: none;">
-                <h2><i class="fas fa-trophy"></i> ¡Quiz Completado!</h2>
-                <div class="score-circle">
-                    <div class="score-value" id="finalScore">0/10</div>
-                    <div class="score-label">Puntuación</div>
+            <!-- Sistema Coreano (oculto inicialmente) -->
+            <div class="language-system" id="koreanSystem" style="display: none;">
+                <div class="system-header">
+                    <button class="btn-back" id="backFromKorean">
+                        <i class="fas fa-arrow-left"></i> Volver a Idiomas
+                    </button>
+                    <h2><i class="fas fa-dragon"></i> Aprende Coreano</h2>
                 </div>
-                <div class="results-details">
-                    <div class="result-item">
-                        <span class="result-label">Correctas:</span>
-                        <span class="result-value correct-count" id="correctCount">0</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Incorrectas:</span>
-                        <span class="result-value incorrect-count" id="incorrectCount">0</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Mazo:</span>
-                        <span class="result-value" id="resultDeckName">Vocales</span>
+
+                <!-- Panel de selección de mazo Coreano -->
+                <div class="deck-selection" id="koreanDeckSelection">
+                    <h3><i class="fas fa-layer-group"></i> Selecciona un Mazo de Coreano</h3>
+                    <div class="deck-grid" id="koreanDeckGrid">
+                        <!-- Los mazos coreanos se cargarán aquí -->
                     </div>
                 </div>
-                <div class="results-controls">
-                    <button class="btn-action" id="playAgain">
-                        <i class="fas fa-play"></i> Jugar Otra Vez
-                    </button>
-                    <button class="btn-action" id="tryOtherDeck">
-                        <i class="fas fa-layer-group"></i> Otro Mazo
-                    </button>
+
+                <!-- Panel del quiz Coreano -->
+                <div class="quiz-container" id="koreanQuizContainer" style="display: none;">
+                    <!-- Contenido similar al ruso pero para coreano -->
+                    <div class="quiz-header">
+                        <div class="progress-info">
+                            <span class="deck-name" id="koreanCurrentDeckName"></span>
+                            <span class="progress" id="koreanProgressText">Pregunta 1/10</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="koreanProgressFill"></div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="character-display" id="koreanCharacter">
+                            가
+                        </div>
+                        
+                        <div class="answer-info" id="koreanAnswerInfo" style="display: none;">
+                            <div class="character-info">
+                                <div class="info-item">
+                                    <span class="info-label">Nombre:</span>
+                                    <span class="info-value" id="koreanCharacterName">가</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Romanización:</span>
+                                    <span class="info-value" id="koreanRomanization">ga</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Significado:</span>
+                                    <span class="info-value" id="koreanMeaning">Primera sílaba del alfabeto</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="options-grid" id="koreanOptionsGrid">
+                        <!-- Las opciones se cargarán aquí -->
+                    </div>
+
+                    <div class="feedback" id="koreanFeedback">
+                        <div class="feedback-content" id="koreanFeedbackContent"></div>
+                        <button class="btn-next" id="koreanNextButton" style="display: none;">
+                            <i class="fas fa-arrow-right"></i> Siguiente
+                        </button>
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button class="btn-control" id="koreanBackToDecks">
+                            <i class="fas fa-arrow-left"></i> Volver a Mazos
+                        </button>
+                        <button class="btn-control" id="koreanRestartQuiz">
+                            <i class="fas fa-redo"></i> Reiniciar Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Panel de resultados Coreano -->
+                <div class="results-container" id="koreanResultsContainer" style="display: none;">
+                    <h3><i class="fas fa-trophy"></i> ¡Quiz de Coreano Completado!</h3>
+                    <div class="score-circle">
+                        <div class="score-value" id="koreanFinalScore">0/10</div>
+                        <div class="score-label">Puntuación</div>
+                    </div>
+                    <div class="results-details">
+                        <div class="result-item">
+                            <span class="result-label">Correctas:</span>
+                            <span class="result-value correct-count" id="koreanCorrectCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Incorrectas:</span>
+                            <span class="result-value incorrect-count" id="koreanIncorrectCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Mazo:</span>
+                            <span class="result-value" id="koreanResultDeckName">Vocales Básicas</span>
+                        </div>
+                    </div>
+                    <div class="results-controls">
+                        <button class="btn-action" id="koreanPlayAgain">
+                            <i class="fas fa-play"></i> Jugar Otra Vez
+                        </button>
+                        <button class="btn-action" id="koreanTryOtherDeck">
+                            <i class="fas fa-layer-group"></i> Otro Mazo
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p>© 2023 - Aprende Ruso | Quiz del Alfabeto Cirílico</p>
+            <p>© 2023 - Aprende Idiomas | Ruso & Coreano - Quizzes Interactivos</p>
         </footer>
     </div>
 
+    <!-- Scripts existentes -->
     <script src="1_ruso_alfabeto.js"></script>
+    <!-- Nuevo script para Coreano -->
+    <script src="2_coreano_alfabeto.js"></script>
+    <!-- Script principal modificado -->
     <script src="script.js"></script>
 </body>
 </html>
