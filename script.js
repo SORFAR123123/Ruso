@@ -1,3 +1,4 @@
+
 // Variables globales
 let currentDeck = null;
 let currentQuestionIndex = 0;
@@ -162,15 +163,16 @@ function loadQuestion() {
         optionButton.textContent = opcion;
         optionButton.dataset.optionIndex = index;
         
-        optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
+        optionButton.addEventListener('click', () => checkAnswer(index, question));
         optionsGrid.appendChild(optionButton);
     });
 }
 
 // Verificar respuesta
-function checkAnswer(selectedIndex, correctIndex, question) {
+function checkAnswer(selectedIndex, question) {
     const options = document.querySelectorAll('.option');
     const selectedOption = options[selectedIndex];
+    const correctIndex = question.respuesta;
     const correctOption = options[correctIndex];
     
     // Deshabilitar todos los botones
