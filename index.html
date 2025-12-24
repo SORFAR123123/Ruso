@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprende Idiomas - Inicio</title>
+    <title>Aprende Idiomas - Ruso y Coreano</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,7 +15,8 @@
         </header>
 
         <div class="main-content">
-            <div class="language-selection">
+            <!-- Pantalla de selección de idioma -->
+            <div class="language-selection" id="languageSelection">
                 <h2><i class="fas fa-language"></i> Elige tu Idioma</h2>
                 <p class="selection-description">Cada idioma tiene quizzes interactivos para aprender su alfabeto y vocabulario básico.</p>
                 
@@ -58,7 +59,7 @@
                 </div>
             </div>
 
-            <!-- Sistema Ruso (oculto inicialmente) -->
+            <!-- Sistema Ruso -->
             <div class="language-system" id="russianSystem" style="display: none;">
                 <div class="system-header">
                     <button class="btn-back" id="backFromRussian">
@@ -70,14 +71,14 @@
                 <!-- Panel de selección de mazo Ruso -->
                 <div class="deck-selection" id="russianDeckSelection">
                     <h3><i class="fas fa-layer-group"></i> Selecciona un Mazo de Ruso</h3>
-                    <div class="deck-grid" id="russianDeckGrid">
-                        <!-- Los mazos rusos se cargarán aquí -->
+                    <div class="deck-grid" id="russianDeckGrid"></div>
+                    <div class="deck-info">
+                        <p>Selecciona un mazo para comenzar a practicar. Cada mazo contiene 10 preguntas.</p>
                     </div>
                 </div>
 
                 <!-- Panel del quiz Ruso -->
                 <div class="quiz-container" id="russianQuizContainer" style="display: none;">
-                    <!-- Contenido del quiz ruso (igual al que ya tienes) -->
                     <div class="quiz-header">
                         <div class="progress-info">
                             <span class="deck-name" id="russianCurrentDeckName"></span>
@@ -89,9 +90,7 @@
                     </div>
 
                     <div class="question-container">
-                        <div class="character-display" id="russianCharacter">
-                            А а
-                        </div>
+                        <div class="character-display" id="russianCharacter">А а</div>
                         
                         <div class="answer-info" id="russianAnswerInfo" style="display: none;">
                             <div class="character-info">
@@ -111,9 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="options-grid" id="russianOptionsGrid">
-                        <!-- Las opciones se cargarán aquí -->
-                    </div>
+                    <div class="options-grid" id="russianOptionsGrid"></div>
 
                     <div class="feedback" id="russianFeedback">
                         <div class="feedback-content" id="russianFeedbackContent"></div>
@@ -164,7 +161,7 @@
                 </div>
             </div>
 
-            <!-- Sistema Coreano (oculto inicialmente) -->
+            <!-- Sistema Coreano -->
             <div class="language-system" id="koreanSystem" style="display: none;">
                 <div class="system-header">
                     <button class="btn-back" id="backFromKorean">
@@ -176,14 +173,14 @@
                 <!-- Panel de selección de mazo Coreano -->
                 <div class="deck-selection" id="koreanDeckSelection">
                     <h3><i class="fas fa-layer-group"></i> Selecciona un Mazo de Coreano</h3>
-                    <div class="deck-grid" id="koreanDeckGrid">
-                        <!-- Los mazos coreanos se cargarán aquí -->
+                    <div class="deck-grid" id="koreanDeckGrid"></div>
+                    <div class="deck-info">
+                        <p>Selecciona un mazo para comenzar a practicar. Cada mazo contiene 10 preguntas.</p>
                     </div>
                 </div>
 
                 <!-- Panel del quiz Coreano -->
                 <div class="quiz-container" id="koreanQuizContainer" style="display: none;">
-                    <!-- Contenido similar al ruso pero para coreano -->
                     <div class="quiz-header">
                         <div class="progress-info">
                             <span class="deck-name" id="koreanCurrentDeckName"></span>
@@ -195,19 +192,17 @@
                     </div>
 
                     <div class="question-container">
-                        <div class="character-display" id="koreanCharacter">
-                            가
-                        </div>
+                        <div class="character-display" id="koreanCharacter">가</div>
                         
                         <div class="answer-info" id="koreanAnswerInfo" style="display: none;">
                             <div class="character-info">
                                 <div class="info-item">
-                                    <span class="info-label">Nombre:</span>
-                                    <span class="info-value" id="koreanCharacterName">가</span>
-                                </div>
-                                <div class="info-item">
                                     <span class="info-label">Romanización:</span>
                                     <span class="info-value" id="koreanRomanization">ga</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Pronunciación:</span>
+                                    <span class="info-value" id="koreanPronunciation">ga</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Significado:</span>
@@ -217,9 +212,7 @@
                         </div>
                     </div>
 
-                    <div class="options-grid" id="koreanOptionsGrid">
-                        <!-- Las opciones se cargarán aquí -->
-                    </div>
+                    <div class="options-grid" id="koreanOptionsGrid"></div>
 
                     <div class="feedback" id="koreanFeedback">
                         <div class="feedback-content" id="koreanFeedbackContent"></div>
@@ -276,11 +269,8 @@
         </footer>
     </div>
 
-    <!-- Scripts existentes -->
     <script src="1_ruso_alfabeto.js"></script>
-    <!-- Nuevo script para Coreano -->
     <script src="2_coreano_alfabeto.js"></script>
-    <!-- Script principal modificado -->
     <script src="script.js"></script>
 </body>
 </html>
