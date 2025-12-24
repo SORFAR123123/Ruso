@@ -40,6 +40,11 @@ const russianResultDeckName = document.getElementById('russianResultDeckName');
 const russianPlayAgain = document.getElementById('russianPlayAgain');
 const russianTryOtherDeck = document.getElementById('russianTryOtherDeck');
 
+// NUEVOS: Elementos para audio en Ruso
+const russianAudioButton = document.getElementById('russianAudioButton');
+const russianPronunciationButton = document.getElementById('russianPronunciationButton');
+const russianExampleButton = document.getElementById('russianExampleButton');
+
 // Elementos para Coreano
 const koreanDeckSelection = document.getElementById('koreanDeckSelection');
 const koreanDeckGrid = document.getElementById('koreanDeckGrid');
@@ -65,6 +70,10 @@ const koreanResultDeckName = document.getElementById('koreanResultDeckName');
 const koreanPlayAgain = document.getElementById('koreanPlayAgain');
 const koreanTryOtherDeck = document.getElementById('koreanTryOtherDeck');
 
+// NUEVOS: Elementos para audio en Coreano
+const koreanAudioButton = document.getElementById('koreanAudioButton');
+const koreanPronunciationButton = document.getElementById('koreanPronunciationButton');
+
 // Iconos para cada mazo
 const deckIcons = {
     russian: {
@@ -77,8 +86,138 @@ const deckIcons = {
         1: 'fas fa-volume-up',
         2: 'fas fa-font',
         3: 'fas fa-bold',
-        4: 'fas fa-language'
+        4: 'fas fa-language',
+        5: 'fas fa-layer-group',
+        6: 'fas fa-font',
+        7: 'fas fa-comments',
+        8: 'fas fa-quote-right'
     }
+};
+
+// Base de datos de pronunciaciones (simulada)
+const audioPronunciations = {
+    // Ruso
+    'a': { text: 'a', lang: 'ru-RU' },
+    'ye': { text: 'ye', lang: 'ru-RU' },
+    'yo': { text: 'yo', lang: 'ru-RU' },
+    'i': { text: 'и', lang: 'ru-RU' },
+    'o': { text: 'o', lang: 'ru-RU' },
+    'u': { text: 'у', lang: 'ru-RU' },
+    'ы': { text: 'ы', lang: 'ru-RU' },
+    'э': { text: 'э', lang: 'ru-RU' },
+    'yu': { text: 'ю', lang: 'ru-RU' },
+    'ya': { text: 'я', lang: 'ru-RU' },
+    'b': { text: 'б', lang: 'ru-RU' },
+    'v': { text: 'в', lang: 'ru-RU' },
+    'g': { text: 'г', lang: 'ru-RU' },
+    'd': { text: 'д', lang: 'ru-RU' },
+    'zh': { text: 'ж', lang: 'ru-RU' },
+    'z': { text: 'з', lang: 'ru-RU' },
+    'k': { text: 'к', lang: 'ru-RU' },
+    'l': { text: 'л', lang: 'ru-RU' },
+    'm': { text: 'м', lang: 'ru-RU' },
+    'n': { text: 'н', lang: 'ru-RU' },
+    'p': { text: 'п', lang: 'ru-RU' },
+    'r': { text: 'р', lang: 'ru-RU' },
+    's': { text: 'с', lang: 'ru-RU' },
+    't': { text: 'т', lang: 'ru-RU' },
+    'f': { text: 'ф', lang: 'ru-RU' },
+    'kh': { text: 'х', lang: 'ru-RU' },
+    'ts': { text: 'ц', lang: 'ru-RU' },
+    'ch': { text: 'ч', lang: 'ru-RU' },
+    'sh': { text: 'ш', lang: 'ru-RU' },
+    'shch': { text: 'щ', lang: 'ru-RU' },
+    'signo_duro': { text: 'твёрдый знак', lang: 'ru-RU' },
+    'signo_suave': { text: 'мягкий знак', lang: 'ru-RU' },
+    'i_kratkoye': { text: 'и краткое', lang: 'ru-RU' },
+    'privet': { text: 'привет', lang: 'ru-RU' },
+    'spasibo': { text: 'спасибо', lang: 'ru-RU' },
+    'da': { text: 'да', lang: 'ru-RU' },
+    'nyet': { text: 'нет', lang: 'ru-RU' },
+    'do_svidaniya': { text: 'до свидания', lang: 'ru-RU' },
+    'kak_dela': { text: 'как дела', lang: 'ru-RU' },
+    
+    // Coreano
+    'g': { text: '기역', lang: 'ko-KR' },
+    'n': { text: '니은', lang: 'ko-KR' },
+    'd': { text: '디귿', lang: 'ko-KR' },
+    'r': { text: '리을', lang: 'ko-KR' },
+    'm': { text: '미음', lang: 'ko-KR' },
+    'b': { text: '비읍', lang: 'ko-KR' },
+    's': { text: '시옷', lang: 'ko-KR' },
+    'silente': { text: '이응', lang: 'ko-KR' },
+    'j': { text: '지읒', lang: 'ko-KR' },
+    'ch': { text: '치읓', lang: 'ko-KR' },
+    'kk': { text: '키읔', lang: 'ko-KR' },
+    'tt': { text: '티읕', lang: 'ko-KR' },
+    'pp': { text: '피읖', lang: 'ko-KR' },
+    'h': { text: '히읗', lang: 'ko-KR' },
+    'kk_tensa': { text: '쌍기역', lang: 'ko-KR' },
+    'tt_tensa': { text: '쌍디귿', lang: 'ko-KR' },
+    'pp_tensa': { text: '쌍비읍', lang: 'ko-KR' },
+    'ss_tensa': { text: '쌍시옷', lang: 'ko-KR' },
+    'jj_tensa': { text: '쌍지읒', lang: 'ko-KR' },
+    'gs': { text: 'ㄳ', lang: 'ko-KR' },
+    'a': { text: '아', lang: 'ko-KR' },
+    'ya': { text: '야', lang: 'ko-KR' },
+    'eo': { text: '어', lang: 'ko-KR' },
+    'yeo': { text: '여', lang: 'ko-KR' },
+    'o': { text: '오', lang: 'ko-KR' },
+    'yo': { text: '요', lang: 'ko-KR' },
+    'u': { text: '우', lang: 'ko-KR' },
+    'yu': { text: '유', lang: 'ko-KR' },
+    'eu': { text: '으', lang: 'ko-KR' },
+    'i': { text: '이', lang: 'ko-KR' },
+    'ae': { text: '애', lang: 'ko-KR' },
+    'yae': { text: '얘', lang: 'ko-KR' },
+    'e': { text: '에', lang: 'ko-KR' },
+    'ye': { text: '예', lang: 'ko-KR' },
+    'wa': { text: '와', lang: 'ko-KR' },
+    'wae': { text: '왜', lang: 'ko-KR' },
+    'oe': { text: '외', lang: 'ko-KR' },
+    'wo': { text: '워', lang: 'ko-KR' },
+    'we': { text: '웨', lang: 'ko-KR' },
+    'wi': { text: '위', lang: 'ko-KR' },
+    'ui': { text: '의', lang: 'ko-KR' },
+    'nj': { text: 'ㄵ', lang: 'ko-KR' },
+    'nh': { text: 'ㄶ', lang: 'ko-KR' },
+    'lg': { text: 'ㄺ', lang: 'ko-KR' },
+    'lm': { text: 'ㄻ', lang: 'ko-KR' },
+    'lb': { text: 'ㄼ', lang: 'ko-KR' },
+    'ls': { text: 'ㄽ', lang: 'ko-KR' },
+    'lt': { text: 'ㄾ', lang: 'ko-KR' },
+    'lp': { text: 'ㄿ', lang: 'ko-KR' },
+    'lh': { text: 'ㅀ', lang: 'ko-KR' },
+    'ga': { text: '가', lang: 'ko-KR' },
+    'na': { text: '나', lang: 'ko-KR' },
+    'da': { text: '다', lang: 'ko-KR' },
+    'ra': { text: '라', lang: 'ko-KR' },
+    'ma': { text: '마', lang: 'ko-KR' },
+    'ba': { text: '바', lang: 'ko-KR' },
+    'sa': { text: '사', lang: 'ko-KR' },
+    'a_silaba': { text: '아', lang: 'ko-KR' },
+    'ja': { text: '자', lang: 'ko-KR' },
+    'cha': { text: '차', lang: 'ko-KR' },
+    'annyeong': { text: '안녕', lang: 'ko-KR' },
+    'gamsa': { text: '감사', lang: 'ko-KR' },
+    'mian': { text: '미안', lang: 'ko-KR' },
+    'sarang': { text: '사랑', lang: 'ko-KR' },
+    'chinggu': { text: '친구', lang: 'ko-KR' },
+    'gajok': { text: '가족', lang: 'ko-KR' },
+    'hakgyo': { text: '학교', lang: 'ko-KR' },
+    'hanguk': { text: '한국', lang: 'ko-KR' },
+    'saram': { text: '사람', lang: 'ko-KR' },
+    'mul': { text: '물', lang: 'ko-KR' },
+    'ne': { text: '네', lang: 'ko-KR' },
+    'aniyo': { text: '아니요', lang: 'ko-KR' },
+    'juseyo': { text: '주세요', lang: 'ko-KR' },
+    'eodiyeyo': { text: '어디예요', lang: 'ko-KR' },
+    'mwoyeyo': { text: '뭐예요', lang: 'ko-KR' },
+    'eolmayeyo': { text: '얼마예요', lang: 'ko-KR' },
+    'ireumi_mwoyeyo': { text: '이름이 뭐예요', lang: 'ko-KR' },
+    'hangungmal': { text: '한국말', lang: 'ko-KR' },
+    'baegopayo': { text: '배고파요', lang: 'ko-KR' },
+    'jaemiisseoyo': { text: '재미있어요', lang: 'ko-KR' }
 };
 
 // Inicialización
@@ -147,12 +286,21 @@ function setupEventListeners() {
     russianTryOtherDeck.addEventListener('click', () => showRussianDecks());
     russianNextButton.addEventListener('click', nextQuestion);
     
+    // NUEVO: Event listeners para audio en Ruso
+    russianAudioButton.addEventListener('click', () => playRussianAudio());
+    russianPronunciationButton.addEventListener('click', () => playRussianPronunciation());
+    russianExampleButton.addEventListener('click', () => playRussianExample());
+    
     // Event listeners para Coreano
     koreanBackToDecks.addEventListener('click', () => showKoreanDecks());
     koreanRestartQuiz.addEventListener('click', () => restartCurrentDeck());
     koreanPlayAgain.addEventListener('click', () => restartCurrentDeck());
     koreanTryOtherDeck.addEventListener('click', () => showKoreanDecks());
     koreanNextButton.addEventListener('click', nextQuestion);
+    
+    // NUEVO: Event listeners para audio en Coreano
+    koreanAudioButton.addEventListener('click', () => playKoreanAudio());
+    koreanPronunciationButton.addEventListener('click', () => playKoreanPronunciation());
 }
 
 // Mostrar selección de idioma
@@ -303,6 +451,98 @@ function loadQuestion() {
     }
 }
 
+// NUEVO: Reproducir audio en Ruso
+function playRussianAudio() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        if (question.audio) {
+            playTextToSpeech(question.audio, 'ru-RU');
+        }
+    }
+}
+
+// NUEVO: Reproducir pronunciación en Ruso
+function playRussianPronunciation() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        if (question.audio) {
+            playTextToSpeech(question.audio, 'ru-RU');
+        }
+    }
+}
+
+// NUEVO: Reproducir ejemplo en Ruso
+function playRussianExample() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        // Extraer la palabra rusa del ejemplo
+        const russianWord = question.ejemplo.split(' ')[0];
+        playTextToSpeech(russianWord, 'ru-RU');
+    }
+}
+
+// NUEVO: Reproducir audio en Coreano
+function playKoreanAudio() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        if (question.audio) {
+            playTextToSpeech(question.audio, 'ko-KR');
+        }
+    }
+}
+
+// NUEVO: Reproducir pronunciación en Coreano
+function playKoreanPronunciation() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        if (question.audio) {
+            playTextToSpeech(question.audio, 'ko-KR');
+        }
+    }
+}
+
+// NUEVO: Función para convertir texto a voz
+function playTextToSpeech(audioKey, lang) {
+    if (audioPronunciations[audioKey]) {
+        const pronunciation = audioPronunciations[audioKey];
+        
+        // Usar la API de síntesis de voz del navegador
+        if ('speechSynthesis' in window) {
+            // Cancelar cualquier síntesis en curso
+            speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(pronunciation.text);
+            utterance.lang = pronunciation.lang || lang;
+            utterance.rate = 0.8; // Velocidad ligeramente más lenta
+            utterance.volume = 1.0;
+            utterance.pitch = 1.0;
+            
+            // Buscar voces en el idioma correcto
+            const voices = speechSynthesis.getVoices();
+            const preferredVoice = voices.find(voice => 
+                voice.lang.startsWith(lang.substring(0, 2))
+            );
+            
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+            
+            speechSynthesis.speak(utterance);
+            
+            // Efecto visual en el botón
+            const button = event ? event.target.closest('.audio-button, .audio-small-button') : null;
+            if (button) {
+                button.classList.add('playing');
+                utterance.onend = () => {
+                    button.classList.remove('playing');
+                };
+            }
+        } else {
+            alert('Tu navegador no soporta la síntesis de voz. Prueba con Chrome, Edge o Safari.');
+        }
+    }
+}
+
 // Verificar respuesta
 function checkAnswer(selectedIndex, correctIndex, question) {
     let options, selectedOption, correctOption, feedbackContent, answerInfo, nextButton;
@@ -413,5 +653,21 @@ function shuffleArray(array) {
     return array;
 }
 
+// Inicializar las voces de síntesis de voz
+function initializeVoices() {
+    if ('speechSynthesis' in window) {
+        // Cargar las voces disponibles
+        speechSynthesis.getVoices();
+        
+        // Algunos navegadores necesitan este evento
+        speechSynthesis.onvoiceschanged = function() {
+            console.log('Voces de síntesis de voz cargadas');
+        };
+    }
+}
+
 // Iniciar la aplicación cuando se cargue la página
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', function() {
+    init();
+    initializeVoices();
+});
