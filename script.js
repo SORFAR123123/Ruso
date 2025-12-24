@@ -1,55 +1,97 @@
-
-// Variables globales
+// Variables globales para ambos idiomas
+let currentLanguage = null; // 'russian' o 'korean'
 let currentDeck = null;
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
 let selectedDeckId = null;
 
-// Elementos del DOM
-const deckSelection = document.getElementById('deckSelection');
-const quizContainer = document.getElementById('quizContainer');
-const resultsContainer = document.getElementById('resultsContainer');
-const deckGrid = document.getElementById('deckGrid');
-const currentDeckName = document.getElementById('currentDeckName');
-const progressText = document.getElementById('progressText');
-const progressFill = document.getElementById('progressFill');
+// Elementos del DOM para selección de idioma
+const languageSelection = document.getElementById('languageSelection');
+const russianSystem = document.getElementById('russianSystem');
+const koreanSystem = document.getElementById('koreanSystem');
+const russianCard = document.getElementById('russianCard');
+const koreanCard = document.getElementById('koreanCard');
+const backFromRussian = document.getElementById('backFromRussian');
+const backFromKorean = document.getElementById('backFromKorean');
+
+// Elementos para Ruso
+const russianDeckSelection = document.getElementById('russianDeckSelection');
+const russianDeckGrid = document.getElementById('russianDeckGrid');
+const russianQuizContainer = document.getElementById('russianQuizContainer');
+const russianResultsContainer = document.getElementById('russianResultsContainer');
+const russianCurrentDeckName = document.getElementById('russianCurrentDeckName');
+const russianProgressText = document.getElementById('russianProgressText');
+const russianProgressFill = document.getElementById('russianProgressFill');
 const russianCharacter = document.getElementById('russianCharacter');
-const characterName = document.getElementById('characterName');
-const pronunciation = document.getElementById('pronunciation');
-const example = document.getElementById('example');
-const answerInfo = document.getElementById('answerInfo');
-const optionsGrid = document.getElementById('optionsGrid');
-const feedback = document.getElementById('feedback');
-const feedbackContent = document.getElementById('feedbackContent');
-const nextButton = document.getElementById('nextButton');
-const backToDecks = document.getElementById('backToDecks');
-const restartQuiz = document.getElementById('restartQuiz');
-const finalScore = document.getElementById('finalScore');
-const correctCount = document.getElementById('correctCount');
-const incorrectCount = document.getElementById('incorrectCount');
-const resultDeckName = document.getElementById('resultDeckName');
-const playAgain = document.getElementById('playAgain');
-const tryOtherDeck = document.getElementById('tryOtherDeck');
+const russianCharacterName = document.getElementById('russianCharacterName');
+const russianPronunciation = document.getElementById('russianPronunciation');
+const russianExample = document.getElementById('russianExample');
+const russianAnswerInfo = document.getElementById('russianAnswerInfo');
+const russianOptionsGrid = document.getElementById('russianOptionsGrid');
+const russianFeedbackContent = document.getElementById('russianFeedbackContent');
+const russianNextButton = document.getElementById('russianNextButton');
+const russianBackToDecks = document.getElementById('russianBackToDecks');
+const russianRestartQuiz = document.getElementById('russianRestartQuiz');
+const russianFinalScore = document.getElementById('russianFinalScore');
+const russianCorrectCount = document.getElementById('russianCorrectCount');
+const russianIncorrectCount = document.getElementById('russianIncorrectCount');
+const russianResultDeckName = document.getElementById('russianResultDeckName');
+const russianPlayAgain = document.getElementById('russianPlayAgain');
+const russianTryOtherDeck = document.getElementById('russianTryOtherDeck');
+
+// Elementos para Coreano
+const koreanDeckSelection = document.getElementById('koreanDeckSelection');
+const koreanDeckGrid = document.getElementById('koreanDeckGrid');
+const koreanQuizContainer = document.getElementById('koreanQuizContainer');
+const koreanResultsContainer = document.getElementById('koreanResultsContainer');
+const koreanCurrentDeckName = document.getElementById('koreanCurrentDeckName');
+const koreanProgressText = document.getElementById('koreanProgressText');
+const koreanProgressFill = document.getElementById('koreanProgressFill');
+const koreanCharacter = document.getElementById('koreanCharacter');
+const koreanRomanization = document.getElementById('koreanRomanization');
+const koreanPronunciation = document.getElementById('koreanPronunciation');
+const koreanMeaning = document.getElementById('koreanMeaning');
+const koreanAnswerInfo = document.getElementById('koreanAnswerInfo');
+const koreanOptionsGrid = document.getElementById('koreanOptionsGrid');
+const koreanFeedbackContent = document.getElementById('koreanFeedbackContent');
+const koreanNextButton = document.getElementById('koreanNextButton');
+const koreanBackToDecks = document.getElementById('koreanBackToDecks');
+const koreanRestartQuiz = document.getElementById('koreanRestartQuiz');
+const koreanFinalScore = document.getElementById('koreanFinalScore');
+const koreanCorrectCount = document.getElementById('koreanCorrectCount');
+const koreanIncorrectCount = document.getElementById('koreanIncorrectCount');
+const koreanResultDeckName = document.getElementById('koreanResultDeckName');
+const koreanPlayAgain = document.getElementById('koreanPlayAgain');
+const koreanTryOtherDeck = document.getElementById('koreanTryOtherDeck');
 
 // Iconos para cada mazo
 const deckIcons = {
-    1: 'fas fa-volume-up',        // Vocales
-    2: 'fas fa-font',            // Consonantes A-J
-    3: 'fas fa-text-height',     // Consonantes P-Shch
-    4: 'fas fa-star'             // Signos y palabras
+    russian: {
+        1: 'fas fa-volume-up',
+        2: 'fas fa-font',
+        3: 'fas fa-text-height',
+        4: 'fas fa-star'
+    },
+    korean: {
+        1: 'fas fa-volume-up',
+        2: 'fas fa-font',
+        3: 'fas fa-bold',
+        4: 'fas fa-language'
+    }
 };
 
 // Inicialización
 function init() {
-    loadDecks();
+    loadRussianDecks();
+    loadKoreanDecks();
     setupEventListeners();
 }
 
-// Cargar los mazos disponibles
-function loadDecks() {
+// Cargar mazos rusos
+function loadRussianDecks() {
     const totalDecks = contarMazosRusoDisponibles();
-    deckGrid.innerHTML = '';
+    russianDeckGrid.innerHTML = '';
     
     for (let i = 1; i <= totalDecks; i++) {
         const deckName = obtenerNombreMazoRuso(i);
@@ -58,34 +100,112 @@ function loadDecks() {
         deckCard.dataset.deckId = i;
         
         deckCard.innerHTML = `
-            <i class="${deckIcons[i] || 'fas fa-question'}"></i>
+            <i class="${deckIcons.russian[i] || 'fas fa-question'}"></i>
             <div class="deck-title">${deckName}</div>
             <div class="deck-count">10 preguntas</div>
         `;
         
-        deckCard.addEventListener('click', () => startDeck(i));
-        deckGrid.appendChild(deckCard);
+        deckCard.addEventListener('click', () => startDeck('russian', i));
+        russianDeckGrid.appendChild(deckCard);
+    }
+}
+
+// Cargar mazos coreanos
+function loadKoreanDecks() {
+    const totalDecks = contarMazosCoreanoDisponibles();
+    koreanDeckGrid.innerHTML = '';
+    
+    for (let i = 1; i <= totalDecks; i++) {
+        const deckName = obtenerNombreMazoCoreano(i);
+        const deckCard = document.createElement('div');
+        deckCard.className = 'deck-card';
+        deckCard.dataset.deckId = i;
+        
+        deckCard.innerHTML = `
+            <i class="${deckIcons.korean[i] || 'fas fa-question'}"></i>
+            <div class="deck-title">${deckName}</div>
+            <div class="deck-count">10 preguntas</div>
+        `;
+        
+        deckCard.addEventListener('click', () => startDeck('korean', i));
+        koreanDeckGrid.appendChild(deckCard);
     }
 }
 
 // Configurar event listeners
 function setupEventListeners() {
-    backToDecks.addEventListener('click', showDeckSelection);
-    restartQuiz.addEventListener('click', restartCurrentDeck);
-    playAgain.addEventListener('click', restartCurrentDeck);
-    tryOtherDeck.addEventListener('click', showDeckSelection);
-    nextButton.addEventListener('click', nextQuestion);
+    // Navegación entre idiomas
+    russianCard.addEventListener('click', () => showLanguageSystem('russian'));
+    koreanCard.addEventListener('click', () => showLanguageSystem('korean'));
+    backFromRussian.addEventListener('click', () => showLanguageSelection());
+    backFromKorean.addEventListener('click', () => showLanguageSelection());
+    
+    // Event listeners para Ruso
+    russianBackToDecks.addEventListener('click', () => showRussianDecks());
+    russianRestartQuiz.addEventListener('click', () => restartCurrentDeck());
+    russianPlayAgain.addEventListener('click', () => restartCurrentDeck());
+    russianTryOtherDeck.addEventListener('click', () => showRussianDecks());
+    russianNextButton.addEventListener('click', nextQuestion);
+    
+    // Event listeners para Coreano
+    koreanBackToDecks.addEventListener('click', () => showKoreanDecks());
+    koreanRestartQuiz.addEventListener('click', () => restartCurrentDeck());
+    koreanPlayAgain.addEventListener('click', () => restartCurrentDeck());
+    koreanTryOtherDeck.addEventListener('click', () => showKoreanDecks());
+    koreanNextButton.addEventListener('click', nextQuestion);
+}
+
+// Mostrar selección de idioma
+function showLanguageSelection() {
+    languageSelection.style.display = 'block';
+    russianSystem.style.display = 'none';
+    koreanSystem.style.display = 'none';
+}
+
+// Mostrar sistema de idioma específico
+function showLanguageSystem(language) {
+    currentLanguage = language;
+    languageSelection.style.display = 'none';
+    russianSystem.style.display = language === 'russian' ? 'block' : 'none';
+    koreanSystem.style.display = language === 'korean' ? 'block' : 'none';
+    
+    if (language === 'russian') {
+        showRussianDecks();
+    } else {
+        showKoreanDecks();
+    }
+}
+
+// Mostrar mazos rusos
+function showRussianDecks() {
+    russianDeckSelection.style.display = 'block';
+    russianQuizContainer.style.display = 'none';
+    russianResultsContainer.style.display = 'none';
+}
+
+// Mostrar mazos coreanos
+function showKoreanDecks() {
+    koreanDeckSelection.style.display = 'block';
+    koreanQuizContainer.style.display = 'none';
+    koreanResultsContainer.style.display = 'none';
 }
 
 // Empezar un mazo
-function startDeck(deckId) {
+function startDeck(language, deckId) {
+    currentLanguage = language;
     selectedDeckId = deckId;
-    currentDeck = obtenerLetrasRuso(deckId);
+    
+    if (language === 'russian') {
+        currentDeck = obtenerLetrasRuso(deckId);
+        russianCurrentDeckName.textContent = obtenerNombreMazoRuso(deckId);
+    } else {
+        currentDeck = obtenerLetrasCoreano(deckId);
+        koreanCurrentDeckName.textContent = obtenerNombreMazoCoreano(deckId);
+    }
+    
     currentQuestionIndex = 0;
     score = 0;
-    questions = [...currentDeck]; // Copia del array para no modificar el original
-    
-    // Mezclar las preguntas
+    questions = [...currentDeck];
     shuffleArray(questions);
     
     showQuiz();
@@ -94,37 +214,23 @@ function startDeck(deckId) {
 
 // Mostrar el quiz
 function showQuiz() {
-    deckSelection.style.display = 'none';
-    resultsContainer.style.display = 'none';
-    quizContainer.style.display = 'block';
-    
-    currentDeckName.textContent = obtenerNombreMazoRuso(selectedDeckId);
-    feedbackContent.textContent = '';
-    feedbackContent.className = 'feedback-content';
-    nextButton.style.display = 'none';
-    answerInfo.style.display = 'none'; // Ocultar información inicialmente
-}
-
-// Mostrar selección de mazos
-function showDeckSelection() {
-    quizContainer.style.display = 'none';
-    resultsContainer.style.display = 'none';
-    deckSelection.style.display = 'block';
-}
-
-// Mostrar resultados
-function showResults() {
-    quizContainer.style.display = 'none';
-    deckSelection.style.display = 'none';
-    resultsContainer.style.display = 'block';
-    
-    const totalQuestions = questions.length;
-    const incorrect = totalQuestions - score;
-    
-    finalScore.textContent = `${score}/${totalQuestions}`;
-    correctCount.textContent = score;
-    incorrectCount.textContent = incorrect;
-    resultDeckName.textContent = obtenerNombreMazoRuso(selectedDeckId);
+    if (currentLanguage === 'russian') {
+        russianDeckSelection.style.display = 'none';
+        russianResultsContainer.style.display = 'none';
+        russianQuizContainer.style.display = 'block';
+        russianFeedbackContent.textContent = '';
+        russianFeedbackContent.className = 'feedback-content';
+        russianNextButton.style.display = 'none';
+        russianAnswerInfo.style.display = 'none';
+    } else {
+        koreanDeckSelection.style.display = 'none';
+        koreanResultsContainer.style.display = 'none';
+        koreanQuizContainer.style.display = 'block';
+        koreanFeedbackContent.textContent = '';
+        koreanFeedbackContent.className = 'feedback-content';
+        koreanNextButton.style.display = 'none';
+        koreanAnswerInfo.style.display = 'none';
+    }
 }
 
 // Cargar pregunta actual
@@ -136,44 +242,85 @@ function loadQuestion() {
     
     const question = questions[currentQuestionIndex];
     
-    // Actualizar interfaz
-    russianCharacter.textContent = question.ruso;
-    characterName.textContent = question.nombre;
-    pronunciation.textContent = question.pronunciacion;
-    example.textContent = question.ejemplo;
-    
-    // Ocultar información de respuesta
-    answerInfo.style.display = 'none';
-    
-    // Actualizar progreso
-    progressText.textContent = `Pregunta ${currentQuestionIndex + 1}/${questions.length}`;
-    const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
-    progressFill.style.width = `${progressPercentage}%`;
-    
-    // Limpiar opciones anteriores
-    optionsGrid.innerHTML = '';
-    feedbackContent.textContent = '';
-    feedbackContent.className = 'feedback-content';
-    nextButton.style.display = 'none';
-    
-    // Crear botones de opciones en grid 2x2
-    question.opciones.forEach((opcion, index) => {
-        const optionButton = document.createElement('button');
-        optionButton.className = 'option';
-        optionButton.textContent = opcion;
-        optionButton.dataset.optionIndex = index;
+    if (currentLanguage === 'russian') {
+        // Configurar para Ruso
+        russianCharacter.textContent = question.ruso;
+        russianCharacterName.textContent = question.nombre;
+        russianPronunciation.textContent = question.pronunciacion;
+        russianExample.textContent = question.ejemplo;
+        russianAnswerInfo.style.display = 'none';
         
-        optionButton.addEventListener('click', () => checkAnswer(index, question));
-        optionsGrid.appendChild(optionButton);
-    });
+        // Actualizar progreso
+        russianProgressText.textContent = `Pregunta ${currentQuestionIndex + 1}/${questions.length}`;
+        const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
+        russianProgressFill.style.width = `${progressPercentage}%`;
+        
+        // Limpiar opciones anteriores
+        russianOptionsGrid.innerHTML = '';
+        russianFeedbackContent.textContent = '';
+        russianFeedbackContent.className = 'feedback-content';
+        russianNextButton.style.display = 'none';
+        
+        // Crear botones de opciones
+        question.opciones.forEach((opcion, index) => {
+            const optionButton = document.createElement('button');
+            optionButton.className = 'option';
+            optionButton.textContent = opcion;
+            optionButton.dataset.optionIndex = index;
+            
+            optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
+            russianOptionsGrid.appendChild(optionButton);
+        });
+    } else {
+        // Configurar para Coreano
+        koreanCharacter.textContent = question.coreano;
+        koreanRomanization.textContent = question.romanizacion;
+        koreanPronunciation.textContent = question.pronunciacion;
+        koreanMeaning.textContent = question.significado;
+        koreanAnswerInfo.style.display = 'none';
+        
+        // Actualizar progreso
+        koreanProgressText.textContent = `Pregunta ${currentQuestionIndex + 1}/${questions.length}`;
+        const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
+        koreanProgressFill.style.width = `${progressPercentage}%`;
+        
+        // Limpiar opciones anteriores
+        koreanOptionsGrid.innerHTML = '';
+        koreanFeedbackContent.textContent = '';
+        koreanFeedbackContent.className = 'feedback-content';
+        koreanNextButton.style.display = 'none';
+        
+        // Crear botones de opciones
+        question.opciones.forEach((opcion, index) => {
+            const optionButton = document.createElement('button');
+            optionButton.className = 'option';
+            optionButton.textContent = opcion;
+            optionButton.dataset.optionIndex = index;
+            
+            optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
+            koreanOptionsGrid.appendChild(optionButton);
+        });
+    }
 }
 
 // Verificar respuesta
-function checkAnswer(selectedIndex, question) {
-    const options = document.querySelectorAll('.option');
-    const selectedOption = options[selectedIndex];
-    const correctIndex = question.respuesta;
-    const correctOption = options[correctIndex];
+function checkAnswer(selectedIndex, correctIndex, question) {
+    let options, selectedOption, correctOption, feedbackContent, answerInfo, nextButton;
+    
+    if (currentLanguage === 'russian') {
+        options = russianOptionsGrid.querySelectorAll('.option');
+        feedbackContent = russianFeedbackContent;
+        answerInfo = russianAnswerInfo;
+        nextButton = russianNextButton;
+    } else {
+        options = koreanOptionsGrid.querySelectorAll('.option');
+        feedbackContent = koreanFeedbackContent;
+        answerInfo = koreanAnswerInfo;
+        nextButton = koreanNextButton;
+    }
+    
+    selectedOption = options[selectedIndex];
+    correctOption = options[correctIndex];
     
     // Deshabilitar todos los botones
     options.forEach(option => {
@@ -210,7 +357,13 @@ function checkAnswer(selectedIndex, question) {
             }
         }, 1500);
     } else {
-        feedbackContent.textContent = `Incorrecto. La respuesta correcta es: "${question.opciones[correctIndex]}"`;
+        let correctAnswer;
+        if (currentLanguage === 'russian') {
+            correctAnswer = question.opciones[correctIndex];
+        } else {
+            correctAnswer = question.opciones[correctIndex];
+        }
+        feedbackContent.textContent = `Incorrecto. La respuesta correcta es: "${correctAnswer}"`;
         feedbackContent.className = 'feedback-content incorrect';
         nextButton.style.display = 'inline-flex';
     }
@@ -222,9 +375,33 @@ function nextQuestion() {
     loadQuestion();
 }
 
+// Mostrar resultados
+function showResults() {
+    const totalQuestions = questions.length;
+    const incorrect = totalQuestions - score;
+    
+    if (currentLanguage === 'russian') {
+        russianQuizContainer.style.display = 'none';
+        russianResultsContainer.style.display = 'block';
+        
+        russianFinalScore.textContent = `${score}/${totalQuestions}`;
+        russianCorrectCount.textContent = score;
+        russianIncorrectCount.textContent = incorrect;
+        russianResultDeckName.textContent = obtenerNombreMazoRuso(selectedDeckId);
+    } else {
+        koreanQuizContainer.style.display = 'none';
+        koreanResultsContainer.style.display = 'block';
+        
+        koreanFinalScore.textContent = `${score}/${totalQuestions}`;
+        koreanCorrectCount.textContent = score;
+        koreanIncorrectCount.textContent = incorrect;
+        koreanResultDeckName.textContent = obtenerNombreMazoCoreano(selectedDeckId);
+    }
+}
+
 // Reiniciar el mazo actual
 function restartCurrentDeck() {
-    startDeck(selectedDeckId);
+    startDeck(currentLanguage, selectedDeckId);
 }
 
 // Mezclar array (para randomizar preguntas)
