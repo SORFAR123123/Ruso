@@ -48,8 +48,8 @@
                             <h3>Coreano</h3>
                             <p>Aprende el alfabeto Hangul con ejercicios prácticos.</p>
                             <div class="language-stats">
-                                <span><i class="fas fa-layer-group"></i> 4 Mazos</span>
-                                <span><i class="fas fa-question-circle"></i> 40 Preguntas</span>
+                                <span><i class="fas fa-layer-group"></i> 8 Mazos</span>
+                                <span><i class="fas fa-question-circle"></i> 80 Preguntas</span>
                             </div>
                         </div>
                         <div class="language-flag">
@@ -90,7 +90,12 @@
                     </div>
 
                     <div class="question-container">
-                        <div class="character-display" id="russianCharacter">А а</div>
+                        <div class="character-display-container">
+                            <div class="character-display" id="russianCharacter">А а</div>
+                            <button class="audio-button" id="russianAudioButton">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
                         
                         <div class="answer-info" id="russianAnswerInfo" style="display: none;">
                             <div class="character-info">
@@ -100,11 +105,21 @@
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Pronunciación:</span>
-                                    <span class="info-value" id="russianPronunciation">a</span>
+                                    <span class="info-value">
+                                        <span id="russianPronunciation">a</span>
+                                        <button class="audio-small-button" id="russianPronunciationButton">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Ejemplo:</span>
-                                    <span class="info-value" id="russianExample">Ананас (ananás) - piña</span>
+                                    <span class="info-value">
+                                        <span id="russianExample">Ананас (ananás) - piña</span>
+                                        <button class="audio-small-button" id="russianExampleButton">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +207,12 @@
                     </div>
 
                     <div class="question-container">
-                        <div class="character-display" id="koreanCharacter">가</div>
+                        <div class="character-display-container">
+                            <div class="character-display" id="koreanCharacter">가</div>
+                            <button class="audio-button" id="koreanAudioButton">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
                         
                         <div class="answer-info" id="koreanAnswerInfo" style="display: none;">
                             <div class="character-info">
@@ -202,7 +222,12 @@
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Pronunciación:</span>
-                                    <span class="info-value" id="koreanPronunciation">ga</span>
+                                    <span class="info-value">
+                                        <span id="koreanPronunciation">ga</span>
+                                        <button class="audio-small-button" id="koreanPronunciationButton">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Significado:</span>
