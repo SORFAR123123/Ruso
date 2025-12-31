@@ -1,5 +1,5 @@
-// Variables globales para ambos idiomas
-let currentLanguage = null; // 'russian' o 'korean'
+// Variables globales para todos los idiomas
+let currentLanguage = null; // 'russian', 'korean' o 'chinese'
 let currentDeck = null;
 let currentQuestionIndex = 0;
 let score = 0;
@@ -10,10 +10,13 @@ let selectedDeckId = null;
 const languageSelection = document.getElementById('languageSelection');
 const russianSystem = document.getElementById('russianSystem');
 const koreanSystem = document.getElementById('koreanSystem');
+const chineseSystem = document.getElementById('chineseSystem');
 const russianCard = document.getElementById('russianCard');
 const koreanCard = document.getElementById('koreanCard');
+const chineseCard = document.getElementById('chineseCard');
 const backFromRussian = document.getElementById('backFromRussian');
 const backFromKorean = document.getElementById('backFromKorean');
+const backFromChinese = document.getElementById('backFromChinese');
 
 // Elementos para Ruso
 const russianDeckSelection = document.getElementById('russianDeckSelection');
@@ -40,7 +43,7 @@ const russianResultDeckName = document.getElementById('russianResultDeckName');
 const russianPlayAgain = document.getElementById('russianPlayAgain');
 const russianTryOtherDeck = document.getElementById('russianTryOtherDeck');
 
-// NUEVOS: Elementos para audio en Ruso
+// Elementos para audio en Ruso
 const russianAudioButton = document.getElementById('russianAudioButton');
 const russianPronunciationButton = document.getElementById('russianPronunciationButton');
 const russianExampleButton = document.getElementById('russianExampleButton');
@@ -70,9 +73,38 @@ const koreanResultDeckName = document.getElementById('koreanResultDeckName');
 const koreanPlayAgain = document.getElementById('koreanPlayAgain');
 const koreanTryOtherDeck = document.getElementById('koreanTryOtherDeck');
 
-// NUEVOS: Elementos para audio en Coreano
+// Elementos para audio en Coreano
 const koreanAudioButton = document.getElementById('koreanAudioButton');
 const koreanPronunciationButton = document.getElementById('koreanPronunciationButton');
+
+// Elementos para Chino
+const chineseDeckSelection = document.getElementById('chineseDeckSelection');
+const chineseDeckGrid = document.getElementById('chineseDeckGrid');
+const chineseQuizContainer = document.getElementById('chineseQuizContainer');
+const chineseResultsContainer = document.getElementById('chineseResultsContainer');
+const chineseCurrentDeckName = document.getElementById('chineseCurrentDeckName');
+const chineseProgressText = document.getElementById('chineseProgressText');
+const chineseProgressFill = document.getElementById('chineseProgressFill');
+const chineseCharacter = document.getElementById('chineseCharacter');
+const chinesePinyin = document.getElementById('chinesePinyin');
+const chineseMeaning = document.getElementById('chineseMeaning');
+const chineseExample = document.getElementById('chineseExample');
+const chineseAnswerInfo = document.getElementById('chineseAnswerInfo');
+const chineseOptionsGrid = document.getElementById('chineseOptionsGrid');
+const chineseFeedbackContent = document.getElementById('chineseFeedbackContent');
+const chineseNextButton = document.getElementById('chineseNextButton');
+const chineseBackToDecks = document.getElementById('chineseBackToDecks');
+const chineseRestartQuiz = document.getElementById('chineseRestartQuiz');
+const chineseFinalScore = document.getElementById('chineseFinalScore');
+const chineseCorrectCount = document.getElementById('chineseCorrectCount');
+const chineseIncorrectCount = document.getElementById('chineseIncorrectCount');
+const chineseResultDeckName = document.getElementById('chineseResultDeckName');
+const chinesePlayAgain = document.getElementById('chinesePlayAgain');
+const chineseTryOtherDeck = document.getElementById('chineseTryOtherDeck');
+
+// Elementos para audio en Chino
+const chineseAudioButton = document.getElementById('chineseAudioButton');
+const chineseExampleButton = document.getElementById('chineseExampleButton');
 
 // Iconos para cada mazo
 const deckIcons = {
@@ -91,6 +123,18 @@ const deckIcons = {
         6: 'fas fa-font',
         7: 'fas fa-comments',
         8: 'fas fa-quote-right'
+    },
+    chinese: {
+        1: 'fas fa-hashtag',
+        2: 'fas fa-list-ol',
+        3: 'fas fa-sort-numeric-up',
+        4: 'fas fa-sort-numeric-down',
+        5: 'fas fa-chart-line',
+        6: 'fas fa-brain',
+        7: 'fas fa-rocket',
+        8: 'fas fa-flag',
+        9: 'fas fa-gem',
+        10: 'fas fa-crown'
     }
 };
 
@@ -182,7 +226,100 @@ const audioPronunciations = {
     'mul': { text: '물', lang: 'ko-KR', fallback: 'mul' },
     'ne': { text: '네', lang: 'ko-KR', fallback: 'ne' },
     'aniyo': { text: '아니요', lang: 'ko-KR', fallback: 'aniyo' },
-    'juseyo': { text: '주세요', lang: 'ko-KR', fallback: 'juseyo' }
+    'juseyo': { text: '주세요', lang: 'ko-KR', fallback: 'juseyo' },
+    
+    // Chino - caracteres comunes
+    'de': { text: '的', lang: 'zh-CN', fallback: 'de' },
+    'yi1': { text: '一', lang: 'zh-CN', fallback: 'yi' },
+    'shi4': { text: '是', lang: 'zh-CN', fallback: 'shi' },
+    'bu4': { text: '不', lang: 'zh-CN', fallback: 'bu' },
+    'le': { text: '了', lang: 'zh-CN', fallback: 'le' },
+    'zai4': { text: '在', lang: 'zh-CN', fallback: 'zai' },
+    'ren2': { text: '人', lang: 'zh-CN', fallback: 'ren' },
+    'you3': { text: '有', lang: 'zh-CN', fallback: 'you' },
+    'wo3': { text: '我', lang: 'zh-CN', fallback: 'wo' },
+    'ta1': { text: '他', lang: 'zh-CN', fallback: 'ta' },
+    'zhe4': { text: '这', lang: 'zh-CN', fallback: 'zhe' },
+    'zhong1': { text: '中', lang: 'zh-CN', fallback: 'zhong' },
+    'da4': { text: '大', lang: 'zh-CN', fallback: 'da' },
+    'lai2': { text: '来', lang: 'zh-CN', fallback: 'lai' },
+    'shang4': { text: '上', lang: 'zh-CN', fallback: 'shang' },
+    'guo2': { text: '国', lang: 'zh-CN', fallback: 'guo' },
+    'ge4': { text: '个', lang: 'zh-CN', fallback: 'ge' },
+    'dao4': { text: '到', lang: 'zh-CN', fallback: 'dao' },
+    'shuo1': { text: '说', lang: 'zh-CN', fallback: 'shuo' },
+    'men': { text: '们', lang: 'zh-CN', fallback: 'men' },
+    'wei4': { text: '为', lang: 'zh-CN', fallback: 'wei' },
+    'zi': { text: '子', lang: 'zh-CN', fallback: 'zi' },
+    'he2': { text: '和', lang: 'zh-CN', fallback: 'he' },
+    'ni3': { text: '你', lang: 'zh-CN', fallback: 'ni' },
+    'chu1': { text: '出', lang: 'zh-CN', fallback: 'chu' },
+    'ye3': { text: '也', lang: 'zh-CN', fallback: 'ye' },
+    'shi2': { text: '时', lang: 'zh-CN', fallback: 'shi' },
+    'nian2': { text: '年', lang: 'zh-CN', fallback: 'nian' },
+    'jiu4': { text: '就', lang: 'zh-CN', fallback: 'jiu' },
+    'na4': { text: '那', lang: 'zh-CN', fallback: 'na' },
+    'yao4': { text: '要', lang: 'zh-CN', fallback: 'yao' },
+    'xia4': { text: '下', lang: 'zh-CN', fallback: 'xia' },
+    'sheng1': { text: '生', lang: 'zh-CN', fallback: 'sheng' },
+    'hui4': { text: '会', lang: 'zh-CN', fallback: 'hui' },
+    'zi4': { text: '自', lang: 'zh-CN', fallback: 'zi' },
+    'qu4': { text: '去', lang: 'zh-CN', fallback: 'qu' },
+    'guo4': { text: '过', lang: 'zh-CN', fallback: 'guo' },
+    'jia1': { text: '家', lang: 'zh-CN', fallback: 'jia' },
+    'xue2': { text: '学', lang: 'zh-CN', fallback: 'xue' },
+    'dui4': { text: '对', lang: 'zh-CN', fallback: 'dui' },
+    'ke3': { text: '可', lang: 'zh-CN', fallback: 'ke' },
+    'li3': { text: '里', lang: 'zh-CN', fallback: 'li' },
+    'hou4': { text: '后', lang: 'zh-CN', fallback: 'hou' },
+    'xiao3': { text: '小', lang: 'zh-CN', fallback: 'xiao' },
+    'xin1': { text: '心', lang: 'zh-CN', fallback: 'xin' },
+    'duo1': { text: '多', lang: 'zh-CN', fallback: 'duo' },
+    'tian1': { text: '天', lang: 'zh-CN', fallback: 'tian' },
+    'er2': { text: '而', lang: 'zh-CN', fallback: 'er' },
+    'neng2': { text: '能', lang: 'zh-CN', fallback: 'neng' },
+    'hao3': { text: '好', lang: 'zh-CN', fallback: 'hao' },
+    'dou1': { text: '都', lang: 'zh-CN', fallback: 'dou' },
+    'mian4': { text: '面', lang: 'zh-CN', fallback: 'mian' },
+    'zui4': { text: '最', lang: 'zh-CN', fallback: 'zui' },
+    'jin4': { text: '进', lang: 'zh-CN', fallback: 'jin' },
+    'yang4': { text: '样', lang: 'zh-CN', fallback: 'yang' },
+    'zhu3': { text: '主', lang: 'zh-CN', fallback: 'zhu' },
+    'xiang3': { text: '想', lang: 'zh-CN', fallback: 'xiang' },
+    'ti3': { text: '体', lang: 'zh-CN', fallback: 'ti' },
+    'zheng4': { text: '政', lang: 'zh-CN', fallback: 'zheng' },
+    'yong4': { text: '用', lang: 'zh-CN', fallback: 'yong' },
+    'suo3': { text: '所', lang: 'zh-CN', fallback: 'suo' },
+    'er4': { text: '二', lang: 'zh-CN', fallback: 'er' },
+    'san1': { text: '三', lang: 'zh-CN', fallback: 'san' },
+    'min2': { text: '民', lang: 'zh-CN', fallback: 'min' },
+    'shi2': { text: '十', lang: 'zh-CN', fallback: 'shi' },
+    'fang1': { text: '方', lang: 'zh-CN', fallback: 'fang' },
+    'zhi1': { text: '知', lang: 'zh-CN', fallback: 'zhi' },
+    'lao3': { text: '老', lang: 'zh-CN', fallback: 'lao' },
+    'xing4': { text: '性', lang: 'zh-CN', fallback: 'xing' },
+    'dong4': { text: '动', lang: 'zh-CN', fallback: 'dong' },
+    'fa3': { text: '法', lang: 'zh-CN', fallback: 'fa' },
+    'xing2': { text: '行', lang: 'zh-CN', fallback: 'xing' },
+    'yi4': { text: '意', lang: 'zh-CN', fallback: 'yi' },
+    'jing1': { text: '经', lang: 'zh-CN', fallback: 'jing' },
+    'fa1': { text: '发', lang: 'zh-CN', fallback: 'fa' },
+    'yu2': { text: '于', lang: 'zh-CN', fallback: 'yu' },
+    'ben3': { text: '本', lang: 'zh-CN', fallback: 'ben' },
+    'ding4': { text: '定', lang: 'zh-CN', fallback: 'ding' },
+    'cong2': { text: '从', lang: 'zh-CN', fallback: 'cong' },
+    'yue4': { text: '月', lang: 'zh-CN', fallback: 'yue' },
+    'liang3': { text: '两', lang: 'zh-CN', fallback: 'liang' },
+    'chang2': { text: '长', lang: 'zh-CN', fallback: 'chang' },
+    'xian4': { text: '现', lang: 'zh-CN', fallback: 'xian' },
+    'fen1': { text: '分', lang: 'zh-CN', fallback: 'fen' },
+    'cheng2': { text: '成', lang: 'zh-CN', fallback: 'cheng' },
+    'you4': { text: '又', lang: 'zh-CN', fallback: 'you' },
+    'ji1': { text: '机', lang: 'zh-CN', fallback: 'ji' },
+    'dang1': { text: '当', lang: 'zh-CN', fallback: 'dang' },
+    'tong2': { text: '同', lang: 'zh-CN', fallback: 'tong' },
+    'wu2': { text: '无', lang: 'zh-CN', fallback: 'wu' },
+    'gong1': { text: '工', lang: 'zh-CN', fallback: 'gong' }
 };
 
 // Variables para control de audio
@@ -195,6 +332,7 @@ function init() {
     try {
         loadRussianDecks();
         loadKoreanDecks();
+        loadChineseDecks();
         setupEventListeners();
         console.log('Aplicación inicializada correctamente');
     } catch (error) {
@@ -255,13 +393,41 @@ function loadKoreanDecks() {
     }
 }
 
+// Cargar mazos chinos
+function loadChineseDecks() {
+    try {
+        const totalDecks = contarMazosChinoDisponibles();
+        chineseDeckGrid.innerHTML = '';
+        
+        for (let i = 1; i <= totalDecks; i++) {
+            const deckName = obtenerNombreMazoChino(i);
+            const deckCard = document.createElement('div');
+            deckCard.className = 'deck-card';
+            deckCard.dataset.deckId = i;
+            
+            deckCard.innerHTML = `
+                <i class="${deckIcons.chinese[i] || 'fas fa-character'}"></i>
+                <div class="deck-title">${deckName}</div>
+                <div class="deck-count">10 caracteres</div>
+            `;
+            
+            deckCard.addEventListener('click', () => startDeck('chinese', i));
+            chineseDeckGrid.appendChild(deckCard);
+        }
+    } catch (error) {
+        console.error('Error cargando mazos chinos:', error);
+    }
+}
+
 // Configurar event listeners
 function setupEventListeners() {
     // Navegación entre idiomas
     russianCard.addEventListener('click', () => showLanguageSystem('russian'));
     koreanCard.addEventListener('click', () => showLanguageSystem('korean'));
+    chineseCard.addEventListener('click', () => showLanguageSystem('chinese'));
     backFromRussian.addEventListener('click', () => showLanguageSelection());
     backFromKorean.addEventListener('click', () => showLanguageSelection());
+    backFromChinese.addEventListener('click', () => showLanguageSelection());
     
     // Event listeners para Ruso
     russianBackToDecks.addEventListener('click', () => showRussianDecks());
@@ -270,7 +436,7 @@ function setupEventListeners() {
     russianTryOtherDeck.addEventListener('click', () => showRussianDecks());
     russianNextButton.addEventListener('click', nextQuestion);
     
-    // Event listeners para audio en Ruso (con manejo de errores)
+    // Event listeners para audio en Ruso
     russianAudioButton.addEventListener('click', (e) => {
         e.preventDefault();
         playRussianAudio();
@@ -293,7 +459,7 @@ function setupEventListeners() {
     koreanTryOtherDeck.addEventListener('click', () => showKoreanDecks());
     koreanNextButton.addEventListener('click', nextQuestion);
     
-    // Event listeners para audio en Coreano (con manejo de errores)
+    // Event listeners para audio en Coreano
     koreanAudioButton.addEventListener('click', (e) => {
         e.preventDefault();
         playKoreanAudio();
@@ -303,6 +469,24 @@ function setupEventListeners() {
         e.preventDefault();
         playKoreanPronunciation();
     });
+    
+    // Event listeners para Chino
+    chineseBackToDecks.addEventListener('click', () => showChineseDecks());
+    chineseRestartQuiz.addEventListener('click', () => restartCurrentDeck());
+    chinesePlayAgain.addEventListener('click', () => restartCurrentDeck());
+    chineseTryOtherDeck.addEventListener('click', () => showChineseDecks());
+    chineseNextButton.addEventListener('click', nextQuestion);
+    
+    // Event listeners para audio en Chino
+    chineseAudioButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        playChineseAudio();
+    });
+    
+    chineseExampleButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        playChineseExample();
+    });
 }
 
 // Mostrar selección de idioma
@@ -311,6 +495,7 @@ function showLanguageSelection() {
         languageSelection.style.display = 'block';
         russianSystem.style.display = 'none';
         koreanSystem.style.display = 'none';
+        chineseSystem.style.display = 'none';
     } catch (error) {
         console.error('Error mostrando selección de idioma:', error);
     }
@@ -323,11 +508,14 @@ function showLanguageSystem(language) {
         languageSelection.style.display = 'none';
         russianSystem.style.display = language === 'russian' ? 'block' : 'none';
         koreanSystem.style.display = language === 'korean' ? 'block' : 'none';
+        chineseSystem.style.display = language === 'chinese' ? 'block' : 'none';
         
         if (language === 'russian') {
             showRussianDecks();
-        } else {
+        } else if (language === 'korean') {
             showKoreanDecks();
+        } else if (language === 'chinese') {
+            showChineseDecks();
         }
     } catch (error) {
         console.error('Error mostrando sistema de idioma:', error);
@@ -356,6 +544,17 @@ function showKoreanDecks() {
     }
 }
 
+// Mostrar mazos chinos
+function showChineseDecks() {
+    try {
+        chineseDeckSelection.style.display = 'block';
+        chineseQuizContainer.style.display = 'none';
+        chineseResultsContainer.style.display = 'none';
+    } catch (error) {
+        console.error('Error mostrando mazos chinos:', error);
+    }
+}
+
 // Empezar un mazo
 function startDeck(language, deckId) {
     try {
@@ -365,9 +564,12 @@ function startDeck(language, deckId) {
         if (language === 'russian') {
             currentDeck = obtenerLetrasRuso(deckId);
             russianCurrentDeckName.textContent = obtenerNombreMazoRuso(deckId);
-        } else {
+        } else if (language === 'korean') {
             currentDeck = obtenerLetrasCoreano(deckId);
             koreanCurrentDeckName.textContent = obtenerNombreMazoCoreano(deckId);
+        } else if (language === 'chinese') {
+            currentDeck = obtenerLetrasChino(deckId);
+            chineseCurrentDeckName.textContent = obtenerNombreMazoChino(deckId);
         }
         
         currentQuestionIndex = 0;
@@ -394,7 +596,7 @@ function showQuiz() {
             russianFeedbackContent.className = 'feedback-content';
             russianNextButton.style.display = 'none';
             russianAnswerInfo.style.display = 'none';
-        } else {
+        } else if (currentLanguage === 'korean') {
             koreanDeckSelection.style.display = 'none';
             koreanResultsContainer.style.display = 'none';
             koreanQuizContainer.style.display = 'block';
@@ -402,6 +604,14 @@ function showQuiz() {
             koreanFeedbackContent.className = 'feedback-content';
             koreanNextButton.style.display = 'none';
             koreanAnswerInfo.style.display = 'none';
+        } else if (currentLanguage === 'chinese') {
+            chineseDeckSelection.style.display = 'none';
+            chineseResultsContainer.style.display = 'none';
+            chineseQuizContainer.style.display = 'block';
+            chineseFeedbackContent.textContent = '';
+            chineseFeedbackContent.className = 'feedback-content';
+            chineseNextButton.style.display = 'none';
+            chineseAnswerInfo.style.display = 'none';
         }
     } catch (error) {
         console.error('Error mostrando quiz:', error);
@@ -447,7 +657,7 @@ function loadQuestion() {
                 optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
                 russianOptionsGrid.appendChild(optionButton);
             });
-        } else {
+        } else if (currentLanguage === 'korean') {
             // Configurar para Coreano
             koreanCharacter.textContent = question.coreano;
             koreanRomanization.textContent = question.romanizacion;
@@ -476,6 +686,35 @@ function loadQuestion() {
                 optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
                 koreanOptionsGrid.appendChild(optionButton);
             });
+        } else if (currentLanguage === 'chinese') {
+            // Configurar para Chino
+            chineseCharacter.textContent = question.hanzi;
+            chinesePinyin.textContent = question.pinyin;
+            chineseMeaning.textContent = question.significado;
+            chineseExample.textContent = question.ejemplo;
+            chineseAnswerInfo.style.display = 'none';
+            
+            // Actualizar progreso
+            chineseProgressText.textContent = `Pregunta ${currentQuestionIndex + 1}/${questions.length}`;
+            const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
+            chineseProgressFill.style.width = `${progressPercentage}%`;
+            
+            // Limpiar opciones anteriores
+            chineseOptionsGrid.innerHTML = '';
+            chineseFeedbackContent.textContent = '';
+            chineseFeedbackContent.className = 'feedback-content';
+            chineseNextButton.style.display = 'none';
+            
+            // Crear botones de opciones
+            question.opciones.forEach((opcion, index) => {
+                const optionButton = document.createElement('button');
+                optionButton.className = 'option';
+                optionButton.textContent = opcion;
+                optionButton.dataset.optionIndex = index;
+                
+                optionButton.addEventListener('click', () => checkAnswer(index, question.respuesta, question));
+                chineseOptionsGrid.appendChild(optionButton);
+            });
         }
     } catch (error) {
         console.error('Error cargando pregunta:', error);
@@ -483,7 +722,7 @@ function loadQuestion() {
     }
 }
 
-// NUEVO: Sistema de audio más seguro
+// Sistema de audio más seguro
 function playRussianAudio() {
     try {
         if (currentQuestionIndex < questions.length) {
@@ -560,7 +799,41 @@ function playKoreanPronunciation() {
     }
 }
 
-// NUEVO: Función mejorada para convertir texto a voz
+function playChineseAudio() {
+    try {
+        if (currentQuestionIndex < questions.length) {
+            const question = questions[currentQuestionIndex];
+            if (question.audio) {
+                playTextToSpeech(question.audio, 'zh-CN');
+            }
+        }
+    } catch (error) {
+        console.error('Error reproduciendo audio chino:', error);
+        showAudioError();
+    }
+}
+
+function playChineseExample() {
+    try {
+        if (currentQuestionIndex < questions.length) {
+            const question = questions[currentQuestionIndex];
+            // Extraer la parte en chino del ejemplo
+            const chinesePart = question.ejemplo.split(' ')[0];
+            if (chinesePart) {
+                // Intentar usar Text-to-Speech para la parte en chino
+                const audioKey = question.audio;
+                if (audioKey) {
+                    playTextToSpeech(audioKey, 'zh-CN');
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error reproduciendo ejemplo chino:', error);
+        showAudioError();
+    }
+}
+
+// Función mejorada para convertir texto a voz
 function playTextToSpeech(audioKey, lang) {
     try {
         // Si ya hay audio reproduciéndose, detenerlo
@@ -608,7 +881,7 @@ function playTextToSpeech(audioKey, lang) {
     }
 }
 
-// NUEVO: Función auxiliar para crear y reproducir utterance
+// Función auxiliar para crear y reproducir utterance
 function createAndPlayUtterance(pronunciation, voices, lang) {
     try {
         const utterance = new SpeechSynthesisUtterance(pronunciation.text);
@@ -676,7 +949,7 @@ function createAndPlayUtterance(pronunciation, voices, lang) {
     }
 }
 
-// NUEVO: Mostrar advertencia de navegador
+// Mostrar advertencia de navegador
 function showBrowserWarning() {
     try {
         // Crear un mensaje temporal
@@ -716,12 +989,19 @@ function showBrowserWarning() {
     }
 }
 
-// NUEVO: Mostrar error de audio
+// Mostrar error de audio
 function showAudioError() {
     try {
-        const feedbackElement = currentLanguage === 'russian' 
-            ? russianFeedbackContent 
-            : koreanFeedbackContent;
+        let feedbackElement;
+        if (currentLanguage === 'russian') {
+            feedbackElement = russianFeedbackContent;
+        } else if (currentLanguage === 'korean') {
+            feedbackElement = koreanFeedbackContent;
+        } else if (currentLanguage === 'chinese') {
+            feedbackElement = chineseFeedbackContent;
+        } else {
+            return;
+        }
         
         const originalContent = feedbackElement.textContent;
         const originalClass = feedbackElement.className;
@@ -739,7 +1019,7 @@ function showAudioError() {
     }
 }
 
-// NUEVO: Mostrar error general
+// Mostrar error general
 function showError(message) {
     try {
         alert(message);
@@ -758,11 +1038,18 @@ function checkAnswer(selectedIndex, correctIndex, question) {
             feedbackContent = russianFeedbackContent;
             answerInfo = russianAnswerInfo;
             nextButton = russianNextButton;
-        } else {
+        } else if (currentLanguage === 'korean') {
             options = koreanOptionsGrid.querySelectorAll('.option');
             feedbackContent = koreanFeedbackContent;
             answerInfo = koreanAnswerInfo;
             nextButton = koreanNextButton;
+        } else if (currentLanguage === 'chinese') {
+            options = chineseOptionsGrid.querySelectorAll('.option');
+            feedbackContent = chineseFeedbackContent;
+            answerInfo = chineseAnswerInfo;
+            nextButton = chineseNextButton;
+        } else {
+            return;
         }
         
         selectedOption = options[selectedIndex];
@@ -804,9 +1091,7 @@ function checkAnswer(selectedIndex, correctIndex, question) {
             }, 1500);
         } else {
             let correctAnswer;
-            if (currentLanguage === 'russian') {
-                correctAnswer = question.opciones[correctIndex];
-            } else {
+            if (currentLanguage === 'russian' || currentLanguage === 'korean' || currentLanguage === 'chinese') {
                 correctAnswer = question.opciones[correctIndex];
             }
             feedbackContent.textContent = `Incorrecto. La respuesta correcta es: "${correctAnswer}"`;
@@ -842,7 +1127,7 @@ function showResults() {
             russianCorrectCount.textContent = score;
             russianIncorrectCount.textContent = incorrect;
             russianResultDeckName.textContent = obtenerNombreMazoRuso(selectedDeckId);
-        } else {
+        } else if (currentLanguage === 'korean') {
             koreanQuizContainer.style.display = 'none';
             koreanResultsContainer.style.display = 'block';
             
@@ -850,6 +1135,14 @@ function showResults() {
             koreanCorrectCount.textContent = score;
             koreanIncorrectCount.textContent = incorrect;
             koreanResultDeckName.textContent = obtenerNombreMazoCoreano(selectedDeckId);
+        } else if (currentLanguage === 'chinese') {
+            chineseQuizContainer.style.display = 'none';
+            chineseResultsContainer.style.display = 'block';
+            
+            chineseFinalScore.textContent = `${score}/${totalQuestions}`;
+            chineseCorrectCount.textContent = score;
+            chineseIncorrectCount.textContent = incorrect;
+            chineseResultDeckName.textContent = obtenerNombreMazoChino(selectedDeckId);
         }
     } catch (error) {
         console.error('Error mostrando resultados:', error);
