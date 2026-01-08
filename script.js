@@ -125,16 +125,16 @@ const deckIcons = {
         8: 'fas fa-quote-right'
     },
     chinese: {
-        1: 'fas fa-hashtag',
-        2: 'fas fa-list-ol',
-        3: 'fas fa-sort-numeric-up',
-        4: 'fas fa-sort-numeric-down',
-        5: 'fas fa-chart-line',
-        6: 'fas fa-brain',
-        7: 'fas fa-rocket',
-        8: 'fas fa-flag',
-        9: 'fas fa-gem',
-        10: 'fas fa-crown'
+        1: 'fas fa-hand-paper', // Saludos
+        2: 'fas fa-question-circle', // Preguntas
+        3: 'fas fa-clock', // Tiempo
+        4: 'fas fa-utensils', // Comida
+        5: 'fas fa-users', // Familia
+        6: 'fas fa-sort-numeric-up', // Números
+        7: 'fas fa-running', // Verbos
+        8: 'fas fa-language', // Más verbos
+        9: 'fas fa-map-marker-alt', // Lugares
+        10: 'fas fa-adjust' // Adjetivos
     }
 };
 
@@ -228,98 +228,90 @@ const audioPronunciations = {
     'aniyo': { text: '아니요', lang: 'ko-KR', fallback: 'aniyo' },
     'juseyo': { text: '주세요', lang: 'ko-KR', fallback: 'juseyo' },
     
-    // Chino - caracteres comunes
+    // Chino - PALABRAS COMPLETAS (NUEVO)
+    'nihao': { text: '你好', lang: 'zh-CN', fallback: 'nihao' },
+    'xiexie': { text: '谢谢', lang: 'zh-CN', fallback: 'xiexie' },
+    'duibuqi': { text: '对不起', lang: 'zh-CN', fallback: 'duibuqi' },
+    'zaijian': { text: '再见', lang: 'zh-CN', fallback: 'zaijian' },
+    'meiguanxi': { text: '没关系', lang: 'zh-CN', fallback: 'meiguanxi' },
+    'jintian': { text: '今天', lang: 'zh-CN', fallback: 'jintian' },
+    'mingtian': { text: '明天', lang: 'zh-CN', fallback: 'mingtian' },
+    'zuotian': { text: '昨天', lang: 'zh-CN', fallback: 'zuotian' },
+    'xianzai': { text: '现在', lang: 'zh-CN', fallback: 'xianzai' },
+    'baba': { text: '爸爸', lang: 'zh-CN', fallback: 'baba' },
+    'mama': { text: '妈妈', lang: 'zh-CN', fallback: 'mama' },
+    'gege': { text: '哥哥', lang: 'zh-CN', fallback: 'gege' },
+    'jiejie': { text: '姐姐', lang: 'zh-CN', fallback: 'jiejie' },
+    'didi': { text: '弟弟', lang: 'zh-CN', fallback: 'didi' },
+    'meimei': { text: '妹妹', lang: 'zh-CN', fallback: 'meimei' },
+    'pengyou': { text: '朋友', lang: 'zh-CN', fallback: 'pengyou' },
+    'laoshi': { text: '老师', lang: 'zh-CN', fallback: 'laoshi' },
+    'xuesheng': { text: '学生', lang: 'zh-CN', fallback: 'xuesheng' },
+    'yisheng': { text: '医生', lang: 'zh-CN', fallback: 'yisheng' },
+    'kafei': { text: '咖啡', lang: 'zh-CN', fallback: 'kafei' },
+    'shuiguo': { text: '水果', lang: 'zh-CN', fallback: 'shuiguo' },
+    'mianbao': { text: '面包', lang: 'zh-CN', fallback: 'mianbao' },
+    'xuexiao': { text: '学校', lang: 'zh-CN', fallback: 'xuexiao' },
+    'yiyuan': { text: '医院', lang: 'zh-CN', fallback: 'yiyuan' },
+    'shangdian': { text: '商店', lang: 'zh-CN', fallback: 'shangdian' },
+    'gongyuan': { text: '公园', lang: 'zh-CN', fallback: 'gongyuan' },
+    'gongjiaoche': { text: '公交车', lang: 'zh-CN', fallback: 'gongjiaoche' },
+    'ditie': { text: '地铁', lang: 'zh-CN', fallback: 'ditie' },
+    'feiji': { text: '飞机', lang: 'zh-CN', fallback: 'feiji' },
+    'gongzuo': { text: '工作', lang: 'zh-CN', fallback: 'gongzuo' },
+    'xuexi': { text: '学习', lang: 'zh-CN', fallback: 'xuexi' },
+    
+    // Chino - caracteres individuales (se mantienen algunos)
     'de': { text: '的', lang: 'zh-CN', fallback: 'de' },
     'yi1': { text: '一', lang: 'zh-CN', fallback: 'yi' },
     'shi4': { text: '是', lang: 'zh-CN', fallback: 'shi' },
     'bu4': { text: '不', lang: 'zh-CN', fallback: 'bu' },
-    'le': { text: '了', lang: 'zh-CN', fallback: 'le' },
-    'zai4': { text: '在', lang: 'zh-CN', fallback: 'zai' },
-    'ren2': { text: '人', lang: 'zh-CN', fallback: 'ren' },
-    'you3': { text: '有', lang: 'zh-CN', fallback: 'you' },
     'wo3': { text: '我', lang: 'zh-CN', fallback: 'wo' },
-    'ta1': { text: '他', lang: 'zh-CN', fallback: 'ta' },
-    'zhe4': { text: '这', lang: 'zh-CN', fallback: 'zhe' },
-    'zhong1': { text: '中', lang: 'zh-CN', fallback: 'zhong' },
-    'da4': { text: '大', lang: 'zh-CN', fallback: 'da' },
-    'lai2': { text: '来', lang: 'zh-CN', fallback: 'lai' },
-    'shang4': { text: '上', lang: 'zh-CN', fallback: 'shang' },
-    'guo2': { text: '国', lang: 'zh-CN', fallback: 'guo' },
-    'ge4': { text: '个', lang: 'zh-CN', fallback: 'ge' },
-    'dao4': { text: '到', lang: 'zh-CN', fallback: 'dao' },
-    'shuo1': { text: '说', lang: 'zh-CN', fallback: 'shuo' },
-    'men': { text: '们', lang: 'zh-CN', fallback: 'men' },
-    'wei4': { text: '为', lang: 'zh-CN', fallback: 'wei' },
-    'zi': { text: '子', lang: 'zh-CN', fallback: 'zi' },
-    'he2': { text: '和', lang: 'zh-CN', fallback: 'he' },
     'ni3': { text: '你', lang: 'zh-CN', fallback: 'ni' },
-    'chu1': { text: '出', lang: 'zh-CN', fallback: 'chu' },
-    'ye3': { text: '也', lang: 'zh-CN', fallback: 'ye' },
-    'shi2': { text: '时', lang: 'zh-CN', fallback: 'shi' },
-    'nian2': { text: '年', lang: 'zh-CN', fallback: 'nian' },
-    'jiu4': { text: '就', lang: 'zh-CN', fallback: 'jiu' },
-    'na4': { text: '那', lang: 'zh-CN', fallback: 'na' },
-    'yao4': { text: '要', lang: 'zh-CN', fallback: 'yao' },
-    'xia4': { text: '下', lang: 'zh-CN', fallback: 'xia' },
-    'sheng1': { text: '生', lang: 'zh-CN', fallback: 'sheng' },
-    'hui4': { text: '会', lang: 'zh-CN', fallback: 'hui' },
-    'zi4': { text: '自', lang: 'zh-CN', fallback: 'zi' },
+    'ta1': { text: '他', lang: 'zh-CN', fallback: 'ta' },
+    'women': { text: '我们', lang: 'zh-CN', fallback: 'women' },
+    'shui3': { text: '水', lang: 'zh-CN', fallback: 'shui' },
+    'cha2': { text: '茶', lang: 'zh-CN', fallback: 'cha' },
+    'fan4': { text: '饭', lang: 'zh-CN', fallback: 'fan' },
+    'rou4': { text: '肉', lang: 'zh-CN', fallback: 'rou' },
+    'yu2': { text: '鱼', lang: 'zh-CN', fallback: 'yu' },
+    'shucai': { text: '蔬菜', lang: 'zh-CN', fallback: 'shucai' },
+    'che1': { text: '车', lang: 'zh-CN', fallback: 'che' },
+    'chi1': { text: '吃', lang: 'zh-CN', fallback: 'chi' },
+    'he1': { text: '喝', lang: 'zh-CN', fallback: 'he' },
     'qu4': { text: '去', lang: 'zh-CN', fallback: 'qu' },
-    'guo4': { text: '过', lang: 'zh-CN', fallback: 'guo' },
+    'lai2': { text: '来', lang: 'zh-CN', fallback: 'lai' },
+    'kan4': { text: '看', lang: 'zh-CN', fallback: 'kan' },
+    'ting1': { text: '听', lang: 'zh-CN', fallback: 'ting' },
+    'shuo1': { text: '说', lang: 'zh-CN', fallback: 'shuo' },
+    'mai3': { text: '买', lang: 'zh-CN', fallback: 'mai' },
+    'mai4': { text: '卖', lang: 'zh-CN', fallback: 'mai' },
+    'zuo4': { text: '坐', lang: 'zh-CN', fallback: 'zuo' },
+    'zhan4': { text: '站', lang: 'zh-CN', fallback: 'zhan' },
+    'zou3': { text: '走', lang: 'zh-CN', fallback: 'zou' },
+    'pao3': { text: '跑', lang: 'zh-CN', fallback: 'pao' },
+    'shui4': { text: '睡', lang: 'zh-CN', fallback: 'shui' },
+    'wan2': { text: '玩', lang: 'zh-CN', fallback: 'wan' },
+    'ai4': { text: '爱', lang: 'zh-CN', fallback: 'ai' },
     'jia1': { text: '家', lang: 'zh-CN', fallback: 'jia' },
-    'xue2': { text: '学', lang: 'zh-CN', fallback: 'xue' },
-    'dui4': { text: '对', lang: 'zh-CN', fallback: 'dui' },
-    'ke3': { text: '可', lang: 'zh-CN', fallback: 'ke' },
-    'li3': { text: '里', lang: 'zh-CN', fallback: 'li' },
-    'hou4': { text: '后', lang: 'zh-CN', fallback: 'hou' },
-    'xiao3': { text: '小', lang: 'zh-CN', fallback: 'xiao' },
-    'xin1': { text: '心', lang: 'zh-CN', fallback: 'xin' },
-    'duo1': { text: '多', lang: 'zh-CN', fallback: 'duo' },
-    'tian1': { text: '天', lang: 'zh-CN', fallback: 'tian' },
-    'er2': { text: '而', lang: 'zh-CN', fallback: 'er' },
-    'neng2': { text: '能', lang: 'zh-CN', fallback: 'neng' },
     'hao3': { text: '好', lang: 'zh-CN', fallback: 'hao' },
-    'dou1': { text: '都', lang: 'zh-CN', fallback: 'dou' },
-    'mian4': { text: '面', lang: 'zh-CN', fallback: 'mian' },
-    'zui4': { text: '最', lang: 'zh-CN', fallback: 'zui' },
-    'jin4': { text: '进', lang: 'zh-CN', fallback: 'jin' },
-    'yang4': { text: '样', lang: 'zh-CN', fallback: 'yang' },
-    'zhu3': { text: '主', lang: 'zh-CN', fallback: 'zhu' },
-    'xiang3': { text: '想', lang: 'zh-CN', fallback: 'xiang' },
-    'ti3': { text: '体', lang: 'zh-CN', fallback: 'ti' },
-    'zheng4': { text: '政', lang: 'zh-CN', fallback: 'zheng' },
-    'yong4': { text: '用', lang: 'zh-CN', fallback: 'yong' },
-    'suo3': { text: '所', lang: 'zh-CN', fallback: 'suo' },
+    'huai4': { text: '坏', lang: 'zh-CN', fallback: 'huai' },
+    'da4': { text: '大', lang: 'zh-CN', fallback: 'da' },
+    'xiao3': { text: '小', lang: 'zh-CN', fallback: 'xiao' },
+    'duo1': { text: '多', lang: 'zh-CN', fallback: 'duo' },
+    'shao3': { text: '少', lang: 'zh-CN', fallback: 'shao' },
+    'xin1': { text: '新', lang: 'zh-CN', fallback: 'xin' },
+    'jiu4': { text: '旧', lang: 'zh-CN', fallback: 'jiu' },
+    're4': { text: '热', lang: 'zh-CN', fallback: 're' },
+    'leng3': { text: '冷', lang: 'zh-CN', fallback: 'leng' },
     'er4': { text: '二', lang: 'zh-CN', fallback: 'er' },
     'san1': { text: '三', lang: 'zh-CN', fallback: 'san' },
-    'min2': { text: '民', lang: 'zh-CN', fallback: 'min' },
-    'shi2': { text: '十', lang: 'zh-CN', fallback: 'shi' },
-    'fang1': { text: '方', lang: 'zh-CN', fallback: 'fang' },
-    'zhi1': { text: '知', lang: 'zh-CN', fallback: 'zhi' },
-    'lao3': { text: '老', lang: 'zh-CN', fallback: 'lao' },
-    'xing4': { text: '性', lang: 'zh-CN', fallback: 'xing' },
-    'dong4': { text: '动', lang: 'zh-CN', fallback: 'dong' },
-    'fa3': { text: '法', lang: 'zh-CN', fallback: 'fa' },
-    'xing2': { text: '行', lang: 'zh-CN', fallback: 'xing' },
-    'yi4': { text: '意', lang: 'zh-CN', fallback: 'yi' },
-    'jing1': { text: '经', lang: 'zh-CN', fallback: 'jing' },
-    'fa1': { text: '发', lang: 'zh-CN', fallback: 'fa' },
-    'yu2': { text: '于', lang: 'zh-CN', fallback: 'yu' },
-    'ben3': { text: '本', lang: 'zh-CN', fallback: 'ben' },
-    'ding4': { text: '定', lang: 'zh-CN', fallback: 'ding' },
-    'cong2': { text: '从', lang: 'zh-CN', fallback: 'cong' },
-    'yue4': { text: '月', lang: 'zh-CN', fallback: 'yue' },
-    'liang3': { text: '两', lang: 'zh-CN', fallback: 'liang' },
-    'chang2': { text: '长', lang: 'zh-CN', fallback: 'chang' },
-    'xian4': { text: '现', lang: 'zh-CN', fallback: 'xian' },
-    'fen1': { text: '分', lang: 'zh-CN', fallback: 'fen' },
-    'cheng2': { text: '成', lang: 'zh-CN', fallback: 'cheng' },
-    'you4': { text: '又', lang: 'zh-CN', fallback: 'you' },
-    'ji1': { text: '机', lang: 'zh-CN', fallback: 'ji' },
-    'dang1': { text: '当', lang: 'zh-CN', fallback: 'dang' },
-    'tong2': { text: '同', lang: 'zh-CN', fallback: 'tong' },
-    'wu2': { text: '无', lang: 'zh-CN', fallback: 'wu' },
-    'gong1': { text: '工', lang: 'zh-CN', fallback: 'gong' }
+    'si4': { text: '四', lang: 'zh-CN', fallback: 'si' },
+    'wu3': { text: '五', lang: 'zh-CN', fallback: 'wu' },
+    'liu4': { text: '六', lang: 'zh-CN', fallback: 'liu' },
+    'qi1': { text: '七', lang: 'zh-CN', fallback: 'qi' },
+    'ba1': { text: '八', lang: 'zh-CN', fallback: 'ba' },
+    'jiu3': { text: '九', lang: 'zh-CN', fallback: 'jiu' }
 };
 
 // Variables para control de audio
@@ -393,7 +385,7 @@ function loadKoreanDecks() {
     }
 }
 
-// Cargar mazos chinos
+// Cargar mazos chinos (MODIFICADO para palabras completas)
 function loadChineseDecks() {
     try {
         const totalDecks = contarMazosChinoDisponibles();
@@ -406,9 +398,9 @@ function loadChineseDecks() {
             deckCard.dataset.deckId = i;
             
             deckCard.innerHTML = `
-                <i class="${deckIcons.chinese[i] || 'fas fa-character'}"></i>
+                <i class="${deckIcons.chinese[i] || 'fas fa-language'}"></i>
                 <div class="deck-title">${deckName}</div>
-                <div class="deck-count">10 caracteres</div>
+                <div class="deck-count">10 palabras</div>
             `;
             
             deckCard.addEventListener('click', () => startDeck('chinese', i));
@@ -555,7 +547,7 @@ function showChineseDecks() {
     }
 }
 
-// Empezar un mazo
+// Empezar un mazo (MODIFICADO para usar palabras chinas)
 function startDeck(language, deckId) {
     try {
         currentLanguage = language;
@@ -568,7 +560,8 @@ function startDeck(language, deckId) {
             currentDeck = obtenerLetrasCoreano(deckId);
             koreanCurrentDeckName.textContent = obtenerNombreMazoCoreano(deckId);
         } else if (language === 'chinese') {
-            currentDeck = obtenerLetrasChino(deckId);
+            // IMPORTANTE: Usar obtenerPalabrasChino en lugar de obtenerLetrasChino
+            currentDeck = obtenerPalabrasChino(deckId);
             chineseCurrentDeckName.textContent = obtenerNombreMazoChino(deckId);
         }
         
@@ -618,7 +611,7 @@ function showQuiz() {
     }
 }
 
-// Cargar pregunta actual
+// Cargar pregunta actual (MODIFICADA PARTE CHINA)
 function loadQuestion() {
     try {
         if (currentQuestionIndex >= questions.length) {
@@ -687,7 +680,7 @@ function loadQuestion() {
                 koreanOptionsGrid.appendChild(optionButton);
             });
         } else if (currentLanguage === 'chinese') {
-            // Configurar para Chino
+            // Configurar para Chino (MODIFICADO para palabras)
             chineseCharacter.textContent = question.hanzi;
             chinesePinyin.textContent = question.pinyin;
             chineseMeaning.textContent = question.significado;
@@ -695,7 +688,7 @@ function loadQuestion() {
             chineseAnswerInfo.style.display = 'none';
             
             // Actualizar progreso
-            chineseProgressText.textContent = `Pregunta ${currentQuestionIndex + 1}/${questions.length}`;
+            chineseProgressText.textContent = `Palabra ${currentQuestionIndex + 1}/${questions.length}`;
             const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
             chineseProgressFill.style.width = `${progressPercentage}%`;
             
